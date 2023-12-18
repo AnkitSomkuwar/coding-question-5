@@ -50,6 +50,13 @@ app.get("/movies/", async (request, response) => {
 app.post("/movies/", (request, response) => {
   const movieDetails = response.body;
   const { directorId, movieName, leadActor } = request.body;
-  console.log(movieDetails);
+   const postMovieQuery = `
+  
+  INSERT INTO
+    movie ( director_id, movie_name, lead_actor)
+  VALUES
+    (${directorId}, '${movieName}', '${leadActor}');`;
+  await db.run(postMovieQuery);
+  response.send("Movie Successfully Added");
 });
 module.exports = app;
