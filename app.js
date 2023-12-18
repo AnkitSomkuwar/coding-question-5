@@ -47,10 +47,9 @@ app.get("/movies/", async (request, response) => {
   );
 });
 
-app.post("/movies/", (request, response) => {
-  const movieDetails = response.body;
+app.post("/movies/", async (request, response) => {
   const { directorId, movieName, leadActor } = request.body;
-   const postMovieQuery = `
+  const postMovieQuery = `
   
   INSERT INTO
     movie ( director_id, movie_name, lead_actor)
@@ -59,4 +58,5 @@ app.post("/movies/", (request, response) => {
   await db.run(postMovieQuery);
   response.send("Movie Successfully Added");
 });
+
 module.exports = app;
