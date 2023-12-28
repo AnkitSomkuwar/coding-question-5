@@ -99,16 +99,17 @@ app.get('/directors/', async (request, response) => {
 app.get('/directors/:directorId/movies/', async (request, response) => {
   const {directorId} = request.params
   const getDirectorMovie = `
-  SELECT movie_name
+  SELECT *
   FROM MOVIE
   WHERE director_id = ${directorId} ;
   `
-  const directorNames = await db.all(getDirectorMovie)
+  const directorNames = await db.get(getDirectorMovie)
   response.send(
     directorNames.map(eachDirector =>
       convertDbObjectToResponseObject(eachDirector),
     ),
   )
 })
+
 
 module.exports = app
